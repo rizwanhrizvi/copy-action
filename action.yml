@@ -7,6 +7,10 @@ inputs:
   name:
     description: asset name
     required: true
+outputs:
+  file:
+    description: the name of the file that was written
+    value: ${{ steps.write.outputs.file }}
 runs:
   using: composite
   steps:
@@ -19,5 +23,8 @@ runs:
         INPUT_NAME: ${{ inputs.name }}
       shell: bash
     - name: Write content to file
-      run: echo "$INPUT_PATH" > "$INPUT_NAME"
+      id: write
+      run: |
+          echo "$INPUT_PATH" > "$INPUT_NAME"
+          echo "file=$INPUT_NAME" >> "$GITHUB_OUTPUT"
       shell: bash
