@@ -1,0 +1,25 @@
+name: Upload release asset as artifact
+description: Upload release asset as artifact.
+
+inputs:
+  path:
+    description: paths of files to include as release asset
+    required: true
+  name:
+    description: asset name
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Define environment variables
+      run: |
+          echo "INPUT_PATH=$INPUT_PATH" >> "$GITHUB_ENV"
+          echo "INPUT_NAME=$INPUT_NAME" >> "$GITHUB_ENV"
+      env:
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_NAME: ${{ inputs.name }}
+      shell: bash
+    - name: Move file
+      run: mv $INPUT_PATH "$INPUT_NAME"
+      shell: bash
