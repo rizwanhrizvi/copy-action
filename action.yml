@@ -13,7 +13,5 @@ runs:
   steps:
     - name: Set output
       id: write
-      env:
-        INPUT_PATH: ${{ inputs.path }}
-      run: echo "file=$INPUT_PATH" >> "$GITHUB_OUTPUT"
+      run: echo "file=${{ inputs.path }}" >> "$GITHUB_OUTPUT"
       shell: bash
