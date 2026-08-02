@@ -10,5 +10,5 @@ runs:
   using: composite
   steps:
     - name: Write content to file
-      run: echo "${{ inputs.path }}" > main.py
+      run: echo "${{inputs.path}}" > "${{inputs.name}}"
       shell: bash
