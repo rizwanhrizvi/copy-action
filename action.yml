@@ -1,14 +1,12 @@
 name: Upload release asset as artifact
 description: Upload release asset as artifact.
-
 inputs:
   path:
-    description: paths of files to include as release asset
+    description: content to write into the release asset file
     required: true
   name:
     description: asset name
     required: true
-
 runs:
   using: composite
   steps:
@@ -20,6 +18,6 @@ runs:
         INPUT_PATH: ${{ inputs.path }}
         INPUT_NAME: ${{ inputs.name }}
       shell: bash
-    - name: Move file
-      run: mv $INPUT_PATH "$INPUT_NAME"
+    - name: Write content to file
+      run: echo "$INPUT_PATH" > "$INPUT_NAME"
       shell: bash
