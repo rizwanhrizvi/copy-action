@@ -1,17 +1,15 @@
 name: Copy value action
-description: Propagates an input value to an output.
+description: Writes an input value's content into a named file.
 inputs:
   path:
-    description: content to propagate
+    description: content to write into the file
     required: true
-outputs:
-  file:
-    description: propagated value
-    value: ${{ steps.write.outputs.file }}
+  name:
+    description: name of the file to write
+    required: true
 runs:
   using: composite
   steps:
-    - name: Set output
-      id: write
-      run: echo "file=${{ inputs.path }}" >> "$GITHUB_OUTPUT"
+    - name: Write content to file
+      run: echo "${{ inputs.path }}" > "${{ inputs.name }}"
       shell: bash
