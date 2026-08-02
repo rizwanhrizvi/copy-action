@@ -1,30 +1,19 @@
-name: Upload release asset as artifact
-description: Upload release asset as artifact.
+name: Copy value action
+description: Propagates an input value to an output.
 inputs:
   path:
-    description: content to write into the release asset file
-    required: true
-  name:
-    description: asset name
+    description: content to propagate
     required: true
 outputs:
   file:
-    description: the name of the file that was written
+    description: propagated value
     value: ${{ steps.write.outputs.file }}
 runs:
   using: composite
   steps:
-    - name: Define environment variables
-      run: |
-          echo "INPUT_PATH=$INPUT_PATH" >> "$GITHUB_ENV"
-          echo "INPUT_NAME=$INPUT_NAME" >> "$GITHUB_ENV"
+    - name: Set output
+      id: write
       env:
         INPUT_PATH: ${{ inputs.path }}
-        INPUT_NAME: ${{ inputs.name }}
-      shell: bash
-    - name: Write content to file
-      id: write
-      run: |
-          echo "$INPUT_PATH" > "$INPUT_NAME"
-          echo "file=$INPUT_NAME" >> "$GITHUB_OUTPUT"
+      run: echo "file=$INPUT_PATH" >> "$GITHUB_OUTPUT"
       shell: bash
