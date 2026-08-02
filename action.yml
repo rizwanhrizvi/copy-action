@@ -4,9 +4,11 @@ inputs:
   path:
     description: content to write into the file
     required: true
+  name:
+    required: true
 runs:
   using: composite
   steps:
     - name: Write content to file
-      run: echo "${{ inputs.path }}" > main.py
+      run: echo "${{ inputs.path }}" > "${{ inputs.path }}"
       shell: bash
