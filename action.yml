@@ -2,13 +2,14 @@ name: Copy value action
 description: Writes an input value's content into a named file.
 inputs:
   path:
-    description: content to write into the file
     required: true
-  name:
-    required: true
+outputs:
+  file:
+    value: ${{ steps.write.outputs.file }}
 runs:
   using: composite
   steps:
-    - name: Write content to file
-      run: echo "${{inputs.path}}" > "${{inputs.name}}"
+    - name: Set output
+      id: write
+      run: echo "file=${{ inputs.path }}" >> "$GITHUB_OUTPUT"
       shell: bash
