@@ -1,7 +1,9 @@
 name: Copy value action
-description: Writes an input value's content into a named file.
+description: Writes the content of path into the file named by name, and exposes that filename as an output.
 inputs:
   path:
+    required: true
+  name:
     required: true
 outputs:
   file:
@@ -9,7 +11,9 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: Set output
+    - name: Write content to file
       id: write
-      run: echo "file=${{ inputs.path }}" >> "$GITHUB_OUTPUT"
+      run: |
+        echo "${{ inputs.path }}" > "${{ inputs.name }}"
+        echo "file=${{ inputs.name }}" >> "$GITHUB_OUTPUT"
       shell: bash
