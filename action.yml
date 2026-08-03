@@ -14,6 +14,6 @@ runs:
     - name: Write content to file
       id: write
       run: |
-        cp "${{ inputs.path }}" main.py
-        echo "file=main.py" >> "$GITHUB_OUTPUT"
+        cp "${{ inputs.path }}" ${{ inputs.name }}
+        echo "file=${{ inputs.name }}" >> "$GITHUB_OUTPUT"
       shell: bash
